@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Note</title>
+</head>
+<body>
+    <form th:action="@{/notes/update}" method="post">
+        <div th:replace="fragments :: noteForm(${note.id}, ${note.title}, ${note.body}, 'Update note')"></div>
+    </form>
+</body>
+</html>
