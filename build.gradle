@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'	
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-devtools:3.1.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web:3.1.4'

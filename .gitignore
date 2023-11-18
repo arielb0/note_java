@@ -35,3 +35,12 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Key file ###
+
+key.txt
+
+### Developer and production application.properties file ###
+
+application.properties.dev
+application.properties.prod
