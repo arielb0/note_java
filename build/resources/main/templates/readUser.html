@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User details</title>
+</head>
+<body>
+    <h1>User details</h1>
+    <ul>
+        <li>Username: <span th:text="${user.username}"></span></li>
+    </ul>
+    <a th:href="@{/users/{id}/update (id=${user.id})}">Update account</a>
+    <form th:action="@{/users/delete}" method="post">
+        <input type="hidden" name="id" th:value="${user.id}">
+        <button type="submit">
+            Delete account
+        </button>
+    </form>
+</body>
+</html>
