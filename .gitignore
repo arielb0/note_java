@@ -44,3 +44,7 @@ key.txt
 
 application.properties.dev
 application.properties.prod
+
+## Jasypt utilities, useful to encrypt passwords on application.properties ###
+
+jasypt-1.9.3
