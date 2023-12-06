@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title th:text="|Note - ${note.title}|"></title>
 </head>
 <body>
-    <h1 th:text="${note.title}" />
-    <p th:text="${note.body}"></p>
-    <a th:href="@{/notes}">Notes</a>
-    <a th:href="@{/notes/{id}/update(id=${note.id})}">Update</a>
-    <form th:action="@{/notes/delete}" method="post">
-        <input type="hidden" name="id" th:value="${note.id}">
-        <input type="submit" value="Delete">
-    </form>
+    <main layout:fragment="content">
+        
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: itemActions(@{/notes/{id}/update (id=${note.id})}, '/notes/delete', ${note.id})})}"></div>
+        
+        <div class="text-center">
+            <h1 th:text="${note.title}"></h1>
+        </div>
+        <pre th:text="${note.body}"></pre>
+    </main>
 </body>
 </html>

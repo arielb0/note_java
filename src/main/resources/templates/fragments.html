@@ -1,15 +1,26 @@
-<div th:fragment="noteForm (id, title, body, submit)">
+<!--
+    @{/notes/create} Create a note
+    @{/notes/{id}/update (id=${note.id})} Update a note
+    @{/notes/delete} Delete a note
+-->
+
+<div th:fragment="noteForm (id, title, body, submitValue)">
     <input type="hidden" name="id" th:value="${id}">
-    <input type="text" name="title" placeholder="Title" th:value="${title}">
-    <textarea name="body" id="" cols="30" rows="10" placeholder="Body" th:text="${body}"></textarea>
-    <input type="submit" th:value="${submit}">
+    <div class="mb-3">
+        <input class="form-control" type="text" name="title" placeholder="Title" th:value="${title}">
+    </div>
+    <div class="mb-3">
+        <textarea class="form-control" name="body" id="" cols="30" rows="10" placeholder="Body" th:text="${body}"></textarea>
+    </div>
+    <input class="btn btn-secondary" type="submit" th:value="${submitValue}">
 </div>
 
-<div th:fragment="userForm (id, username, submit)">
-    <input type="hidden" name="id" th:value="${id}">
-    <input type="text" name="username" placeholder="Username" th:value="${username}">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" th:value="${submit}">
+<div th:fragment="userForm(id, username, submitValue)">
+    <input class="form-control mb-3" type="text" name="username" placeholder="Username" th:value="${username}">
+    <input class="form-control mb-3" type="password" name="password" placeholder="Password">
+    <div class="d-flex flex-column">
+        <input class="btn btn-secondary" type="submit" th:value="${submitValue}"></input>
+    </div>
 </div>
 
 <div th:fragment="navBar">
@@ -17,4 +28,60 @@
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
+</div>
+
+<div th:fragment="emptyButton"></div>
+
+<div th:fragment="backButton">
+    <div class="nav-item">
+        <a class="btn btn-secondary" th:href="@{/notes}">Back</a>
+    </div>
+</div>
+
+<div th:fragment="createButton(url)">
+    <div class="nav-item">
+        <a class="btn btn-secondary" th:href="${url}">Create</a>
+    </div>
+</div>
+
+<div th:fragment="updateButton(url)" class="nav-item">
+    <a class="btn btn-secondary me-2" th:href="${url}">Update</a>
+</div>
+
+<div th:fragment="deleteButton(url, id)" class="nav-item">
+    <form th:action="${url}" method="post">
+        <input type="hidden" name="id" th:value="${id}">
+        <input class="btn btn-secondary me-2" type="submit" value="Delete">
+    </form>
+</div>
+
+<div class="d-flex" th:fragment="itemActions(updateUrl, deleteUrl, id)">
+    <div th:replace="~{ :: updateButton(${updateUrl})}"></div>
+    <div th:replace="~{ :: deleteButton(${deleteUrl}, ${id})}"></div>
+</div>
+
+<div th:fragment="listNoteActions">
+    <div class="nav-item">
+        <div class="d-flex">
+            <span class="nav-link">Action: </span>
+            <select class="form-select" name="action" id="">
+                <option value="0" default>---</option>
+                <option value="1">Delete</option>
+            </select>
+            <input class="btn btn-secondary ms-2" type="submit" value="Go">
+        </div>
+    </div>
+</div>
+
+<div th:fragment="toolBar(leftButtons, rightButtons)">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+        <div class="container-fluid">
+            <div class="navbar-nav">
+                <div th:replace="${leftButtons}"></div>                
+            </div>
+            <div class="navbar-nav">
+                <div th:replace="${rightButtons}"></div>                
+            </div>
+        </div>
+    </nav>
 </div>

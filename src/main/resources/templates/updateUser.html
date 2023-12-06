@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,9 +7,34 @@
     <title>Update user</title>
 </head>
 <body>
-    <h1>Update user</h1>
-    <form th:action="@{/users/update}" method="post">
-        <div th:replace="~{fragments :: userForm(${user.id}, ${user.username}, 'Update user')}"></div>
-    </form>
+    <div layout:fragment="content">
+        <p>
+            TODO: Only allow change password 
+            TODO: Put here the toolbar
+            TODO: Put all content inside layout fragment.
+        </p>
+        <form th:action="@{/users/update}" method="post">
+            <div th:replace="~{fragments :: userForm(${user.id}, ${user.username}, 'Update user')}"></div>
+        </form>
+    </div>    
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="|Note - ${user.username} - update account|"></title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div ></div>
+        <form th:action="@{/users/update}" method="post">
+            <div th:replace="~{fragments :: userForm(${user.id}, ${user.username}, 'Update account')}"></div>
+        </form>
+    </div>
 </body>
 </html>

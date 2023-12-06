@@ -18,13 +18,13 @@ public class WebSecurityConfig {
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests.requestMatchers("users/create", "logout")
+        http.authorizeHttpRequests((requests) -> requests.requestMatchers("users/create", "logout", "/webjars/**")
         .permitAll().anyRequest().authenticated())
         .formLogin((form) -> form.loginPage("/login").defaultSuccessUrl("/notes").permitAll())
         .logout((logout) -> logout.permitAll());
         return http.build();
     }
-
+    
     @Bean
     public UserService userDetailsService() {
         return new UserService();

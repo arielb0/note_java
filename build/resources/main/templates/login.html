@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{noAuthenticatedLayout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
-    <form th:action="@{/login}" method="post">
-        <input type="text" name="username" placeholder="User">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
+    <main layout:fragment="content" class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <form th:action="@{/login}" method="post" class="bg-light p-5">
+            <div th:replace="~{fragments :: userForm('0', '', 'Login')}"></div>
+            <div class="text-center m-3">
+                <p>You do not have an account?</p>
+                <a class="text-center" href="/users/create">Register</a>
+            </div>
+        </form>
+    </main>
 </body>
 </html>

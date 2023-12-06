@@ -19,7 +19,7 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     @Autowired
-    private UserService userService;    
+    private UserService userService;
 
     public void create(String title, String body) {
         Note note = new Note();
@@ -34,6 +34,7 @@ public class NoteService {
         return noteRepository.findById(id).orElseThrow();
     }
     
+    @PreAuthorize("this.read(#id).getUser().getUsername() == authentication.principal.username")
     public Note update(long id, String title, String body) {
         Note note = read(id);
         boolean titleHasChanged = !title.equals(note.getTitle());
@@ -61,6 +62,18 @@ public class NoteService {
 
     public List<Note> filterByLoggedUser() {
         return noteRepository.findByUser(getLoggedUser());
+    }
+
+    public List<Note> bulkAction(int action, int[] noteId) {        
+        for (int i = 0; i < noteId.length; i++) {
+            switch (action) {
+                case 1:
+                    this.delete(noteId[i]);
+                    break;                
+            }
+
+        }
+        return this.filterByLoggedUser();
     }
 
     private CustomUser getLoggedUser() {

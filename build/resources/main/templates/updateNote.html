@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Note</title>
+    <title th:text="|Note - ${note.title}|"></title>
 </head>
 <body>
-    <form th:action="@{/notes/update}" method="post">
-        <div th:replace="fragments :: noteForm(${note.id}, ${note.title}, ${note.body}, 'Update note')"></div>
-    </form>
+    <main layout:fragment="content">
+        <!--
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: deleteNoteButton})}"></div>
+        -->
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: deleteButton('/notes/delete', ${note.id})})}"></div>
+
+        <form th:action="@{/notes/update}" method="post">
+            <div th:replace="fragments :: noteForm(${note.id}, ${note.title}, ${note.body}, 'Update note')"></div>
+        </form>
+    </main>
 </body>
 </html>

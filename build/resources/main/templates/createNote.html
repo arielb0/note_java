@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create note</title>
+    <title>Note - Create a note</title>
 </head>
 <body>
-    <form th:action="@{/notes/create}" method="post">
-        <div th:replace="~{fragments :: noteForm('', '', '','Create note')}"></div>
-    </form>
+    <main layout:fragment="content">
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: emptyButton})}"></div>
+        <form th:action="@{/notes/create}" method="post">
+            <div th:replace="~{fragments :: noteForm('', '', '','Create note')}"></div>
+        </form>
+    </main>
 </body>
 </html>

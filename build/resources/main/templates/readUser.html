@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -17,5 +18,27 @@
             Delete account
         </button>
     </form>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="|Note - ${user.username} account|"></title>
+</head>
+<body>
+    <div layout:fragment="content">
+        
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: itemActions(@{/users/{id}/update (id=${user.id})}, '/users/delete', ${user.id}) })}"></div>
+        
+        <ul>
+            <li th:text="|Username: ${user.username}|"></li>
+        </ul>
+    </div>
 </body>
 </html>

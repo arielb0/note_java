@@ -28,13 +28,15 @@ public class NoteController {
     private UserService userService;
     
     @GetMapping("/create")
-    public String createGet() {
+    public String createGet(Model model) {
+        model.addAttribute("userId", getLoggedUserId());
         return "createNote";
     }
     
     @PostMapping("/create")
-    public String createPost(@RequestParam("title")String title, @RequestParam("body") String body) {
+    public String createPost(@RequestParam("title")String title, @RequestParam("body") String body, Model model) {
         noteService.create(title, body);
+        model.addAttribute("userId", getLoggedUserId());
         return "createNote";
     }
 
@@ -42,6 +44,7 @@ public class NoteController {
     public String read(Model model, @PathVariable("id") long id) {
         Note note = noteService.read(id);
         model.addAttribute("note", note);
+        model.addAttribute("userId", getLoggedUserId());
         return "readNote";
     }
 
@@ -49,6 +52,7 @@ public class NoteController {
     public String updateGet(Model model, @PathVariable("id") long id) {
         Note note = noteService.read(id);
         model.addAttribute("note", note);
+        model.addAttribute("userId", getLoggedUserId());
         return "updateNote";
     }
 
@@ -56,6 +60,7 @@ public class NoteController {
     public String updatePost(@RequestParam(name="id")Long id, @RequestParam(name="title") String title, @RequestParam(name="body") String body, Model model) {
         Note note = noteService.update(id, title, body);
         model.addAttribute("note", note);
+        model.addAttribute("userId", getLoggedUserId());
         return "updateNote";
     }
 
@@ -63,12 +68,22 @@ public class NoteController {
     public String delete(@RequestParam(name="id") Long id, Model model) {
         noteService.delete(id);
         model.addAttribute("notes", noteService.filterByLoggedUser());
+        model.addAttribute("userId", getLoggedUserId());
         return "listNotes";
     }
 
     @GetMapping("")
     public String list(Model model) {
         List<Note> notes = noteService.filterByLoggedUser();
+        model.addAttribute("notes", notes);
+        model.addAttribute("userId", getLoggedUserId());
+        return "listNotes";
+    }
+
+    @PostMapping("")
+    public String bulkAction(@RequestParam(name="action") int action, @RequestParam(name="selectedNote") int[] selectedNotes, Model model) {
+        // TODO: Solve issue when user don't select a note and press "Go" button.
+        List<Note> notes = noteService.bulkAction(action, selectedNotes);
         model.addAttribute("notes", notes);
         model.addAttribute("userId", getLoggedUserId());
         return "listNotes";

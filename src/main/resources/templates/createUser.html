@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -10,5 +11,30 @@
     <form th:action="@{/users/create}" method="post">
         <div th:replace="~{fragments :: userForm('', '', 'Create user')}"></div>
     </form>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{noAuthenticatedLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create user</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            <form th:action="@{/users/create}" method="post">
+                <div th:replace="~{fragments :: userForm('', '', 'Create user')}"></div>
+            </form>
+            <div class="text-center m-3">
+                <p>You have an account?</p>
+                <a class="text-center" href="/login">Login</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
