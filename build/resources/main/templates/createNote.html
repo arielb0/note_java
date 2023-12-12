@@ -10,6 +10,9 @@ layout:decorate="~{authenticatedLayout.html}">
 <body>
     <main layout:fragment="content">
         <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: emptyButton})}"></div>
+        
+        <div th:replace="fragments :: alert(${messageType}, ${message})"></div>
+        
         <form th:action="@{/notes/create}" method="post">
             <div th:replace="~{fragments :: noteForm('', '', '','Create note')}"></div>
         </form>

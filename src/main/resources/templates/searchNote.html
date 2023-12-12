@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note - Search</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: emptyButton})}"></div>
+        
+        <form role="search" action="/notes" method="get">
+            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-secondary" type="submit">Search</button>
+        </form>
+        
+    </div>
+</body>
+</html>

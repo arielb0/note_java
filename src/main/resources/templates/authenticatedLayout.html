@@ -26,20 +26,39 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
                             <button class="nav-link active dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false" sec:authentication="name"></button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" th:href="@{/users/{id} (id=${userId})}">View profile</a>
+
+                                <!--
                                 <a class="dropdown-item" href="#">Donate</a>
+                                -->
+                                
+                                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#donateModal">Donate</button>                                
+
                                 <form th:action="@{/logout}" method="post">
                                     <input class="dropdown-item" type="submit" value="Logout">
                                 </form>
-                                <!--
-                                <a class="dropdown-item" href="/logout">Logout</a>
-                                -->
                             </ul>
                         </li>
-                        
                     </ul>
                 </div>
             </nav>
-        </header>
+        </header>          
+          
+        <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="donateModalLabel">Donate</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-break">Nano: <a href="nano://nano_33yth9isoxgzik4ph8gq8hsnnyrjpziek5uizmmic9nj68zkiz5sxbxao13o?label=Note%20Project&message=Donate%20Now">nano_33yth9isoxgzik4ph8gq8hsnnyrjpziek5uizmmic9nj68zkiz5sxbxao13o</a></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <main layout:fragment="content" class="mt-3"></main>
     </div>
 </body>

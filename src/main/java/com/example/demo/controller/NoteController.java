@@ -36,6 +36,8 @@ public class NoteController {
     @PostMapping("/create")
     public String createPost(@RequestParam("title")String title, @RequestParam("body") String body, Model model) {
         noteService.create(title, body);
+        model.addAttribute("messageType", "success");
+        model.addAttribute("message", "Note created sucessfully");
         model.addAttribute("userId", getLoggedUserId());
         return "createNote";
     }
@@ -61,6 +63,8 @@ public class NoteController {
         Note note = noteService.update(id, title, body);
         model.addAttribute("note", note);
         model.addAttribute("userId", getLoggedUserId());
+        model.addAttribute("messageType", "success");
+        model.addAttribute("message", "Note updated sucessfully.");
         return "updateNote";
     }
 
@@ -69,29 +73,59 @@ public class NoteController {
         noteService.delete(id);
         model.addAttribute("notes", noteService.filterByLoggedUser());
         model.addAttribute("userId", getLoggedUserId());
+        model.addAttribute("messageType", "success");
+        model.addAttribute("message", "Note deleted sucessfully.");
         return "listNotes";
     }
 
     @GetMapping("")
-    public String list(Model model) {
-        List<Note> notes = noteService.filterByLoggedUser();
+    public String list(@RequestParam(name = "search", required = false) String search, Model model) {
+        List<Note> notes = null;
+
+        if (search != null) {
+            notes = noteService.filterByQueryString(search);
+            model.addAttribute("notes", notes);
+        } else {
+            notes = noteService.filterByLoggedUser();
+        }
+        
         model.addAttribute("notes", notes);
         model.addAttribute("userId", getLoggedUserId());
+
         return "listNotes";
     }
 
     @PostMapping("")
-    public String bulkAction(@RequestParam(name="action") int action, @RequestParam(name="selectedNote") int[] selectedNotes, Model model) {
+    public String bulkAction(@RequestParam(name="action") int action, @RequestParam(name="selectedNote", required = false) int[] selectedNotes, Model model) {
         // TODO: Solve issue when user don't select a note and press "Go" button.
-        List<Note> notes = noteService.bulkAction(action, selectedNotes);
+        List<Note> notes;
+
+        if (selectedNotes != null) {
+            notes = noteService.bulkAction(action, selectedNotes);
+            model.addAttribute("messageType", "success");
+            model.addAttribute("message", "Notes deleted sucessfully");
+        } else {
+            notes = noteService.filterByLoggedUser();
+            model.addAttribute("messageType", "warning");
+            model.addAttribute("message", "You need to select one note at least.");
+            model.addAttribute("notes", model);
+        }
+        
         model.addAttribute("notes", notes);
         model.addAttribute("userId", getLoggedUserId());
+        
         return "listNotes";
+    }
+
+    @GetMapping("/search")
+    public String search() {
+        return "searchNote";
     }
 
     private long getLoggedUserId() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         CustomUser user = userService.read(username);
+
         return user.getId();
     }
 

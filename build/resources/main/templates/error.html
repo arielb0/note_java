@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{authenticatedLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="|Note - ${errorTitle} |"></title>
+</head>
+<body>
+    <div layout:fragment="content">
+        
+        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: emptyButton})}"></div>
+        
+        <div class="text-center">
+            <h1 th:text="${errorTitle}"></h1>
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </div>
+</body>
+</html>

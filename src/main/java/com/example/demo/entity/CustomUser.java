@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class CustomUser implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 
     public long getId() {

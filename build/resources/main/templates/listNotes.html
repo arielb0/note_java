@@ -13,6 +13,8 @@ layout:decorate="~{authenticatedLayout.html}">
         <form th:action="@{/notes}" method="post">
             
             <div th:replace="~{fragments :: toolBar(~{fragments :: createButton('/notes/create')}, ~{fragments :: listNoteActions})}"></div>
+
+            <div th:replace="~{fragments :: alert(${messageType}, ${message})}"></div>
             
             <table class="table table-hover">
                 <tbody>
@@ -21,7 +23,7 @@ layout:decorate="~{authenticatedLayout.html}">
                             <input type="checkbox" th:name="selectedNote" th:value="${note.id}">
                         </td>
                         <td>                        
-                            <a th:href="@{/notes/{id}(id=${note.id})}" th:text="${note.title}"></a>
+                            <a th:href="@{/notes/{id}(id=${note.id})}" th:text="${#strings.length(note.title) > 16 ? #strings.substring(note.title, 0, 15) + ' ...' : note.title}"></a>
                         </td>
                         <td>                        
                             <a th:href="@{/notes/{id}(id=${note.id})}" th:text="${#strings.length(note.body) > 128 ? #strings.substring(note.body, 0, 127) + ' ...': note.body}"></a>

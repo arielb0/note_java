@@ -9,10 +9,10 @@ layout:decorate="~{authenticatedLayout.html}">
 </head>
 <body>
     <main layout:fragment="content">
-        <!--
-        <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: deleteNoteButton})}"></div>
-        -->
+        
         <div th:replace="~{fragments :: toolBar(~{fragments :: backButton}, ~{fragments :: deleteButton('/notes/delete', ${note.id})})}"></div>
+        
+        <div th:replace="fragments :: alert(${messageType}, ${message})"></div>
 
         <form th:action="@{/notes/update}" method="post">
             <div th:replace="fragments :: noteForm(${note.id}, ${note.title}, ${note.body}, 'Update note')"></div>

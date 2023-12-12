@@ -1,3 +1,23 @@
+Last commit
+
+- Fixed issue when user try to write a note with more than 255 characters. Currently user can write notes with
+8192 characters.
+- Fixed issue when user try to change their password.
+- Fixed empty note selection issue on listNotes.html.
+- Created donate popup window with nano address.
+- Put notifications on pages, to inform user when tasks is done.
+- Solve issue when user on listNotes.html don't select a note and try to make an action.
+- Implement cascade deletion on User entity.
+- Create a error page.
+- Create search funcionality.
+
+2023-10-06
+
+- Apply Boostrap styles to entire application.
+- Refactored code to improve code reusability (common user interface components, are on fragments.html file). Also, now
+the components are more abstract, to allow better code reutilization.
+- Changed names to main layouts files (authenticatedLayout.html and noAuthenticatedLayout.html)
+
 2023-10-25
 
 - Created basic authentication.

@@ -25,9 +25,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createPost(@RequestParam(name="username") String username, @RequestParam(name="password") String password) {
+    public String createPost(@RequestParam(name="username") String username, @RequestParam(name="password") String password, Model model) {
         userService.create(username, password);
-        return "createUser";
+        model.addAttribute("messageType", "success");
+        model.addAttribute("message", "Account created successfully. Now, you can login.");
+
+        return "login";
     }
 
     @GetMapping("/{id}")
@@ -42,6 +45,8 @@ public class UserController {
     public String updateGet(@PathVariable(name="id") Long id, Model model) {
         CustomUser user = userService.read(id);
         model.addAttribute("user", user);
+        model.addAttribute("messageType", "warning");
+        model.addAttribute("message", "If you change your username, you need to log in again.");
         return "updateUser";
     }
 
@@ -51,7 +56,8 @@ public class UserController {
 
         CustomUser user = userService.update(id, username, password);
         model.addAttribute("user", user);
-
+        model.addAttribute("messageType", "success");
+        model.addAttribute("message", "Account updated successfully.");
         return "updateUser";
     }
 

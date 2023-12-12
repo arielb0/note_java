@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
@@ -16,6 +17,8 @@ public class Note implements Serializable {
     private Long id;
 
     private String title;
+
+    @Column(length=8192)
     private String body;
     
     @ManyToOne

@@ -15,7 +15,7 @@ layout:decorate="~{authenticatedLayout.html}">
         <div class="text-center">
             <h1 th:text="${note.title}"></h1>
         </div>
-        <pre th:text="${note.body}"></pre>
+        <pre style="white-space: pre-wrap" th:text="${note.body}"></pre>
     </main>
 </body>
 </html>

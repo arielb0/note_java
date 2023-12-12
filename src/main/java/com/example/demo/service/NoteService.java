@@ -64,6 +64,11 @@ public class NoteService {
         return noteRepository.findByUser(getLoggedUser());
     }
 
+    public List<Note> filterByQueryString(String queryString) {
+        List<Note> notes = noteRepository.findByTitleContainingOrBodyContainingAndUser(queryString, queryString, getLoggedUser());
+        return notes;
+    }
+
     public List<Note> bulkAction(int action, int[] noteId) {        
         for (int i = 0; i < noteId.length; i++) {
             switch (action) {

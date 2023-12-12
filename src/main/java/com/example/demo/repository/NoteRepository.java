@@ -12,5 +12,6 @@ import java.util.List;
 public interface NoteRepository extends JpaRepository<Note, Long>{
     
     List<Note> findByUser(CustomUser user);
-    
+    List<Note> findByTitleContainingOrBodyContainingAndUser(String title, String body, CustomUser user);
+
 }
